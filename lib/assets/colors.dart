@@ -1,0 +1,7 @@
+import 'package:flutter/material.dart';
+
+Color bgclr = Color(0xffe0e0e0);
+Color highlightclr = Color(0xffffffff);
+Color shadowclr = Color(0xffbebebe);
+Color textclr = Color(0x8a000000);
+Color borderblacklight = Color(0xff888888);
