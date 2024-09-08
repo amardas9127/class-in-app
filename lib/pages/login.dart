@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hackathon/assets/colors.dart';
+import 'package:hackathon/utils/colors.dart';
 import 'package:hackathon/pages/home.dart';
-
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -15,9 +14,10 @@ class _LoginState extends State<Login> {
   TextEditingController passwordval = TextEditingController();
 
   String welcomeText = "STUDENT LOGIN";
-  bool isTeacher = false;
+  var Logintext = "Student";
   bool isTeacherSelected = false;
   bool isStudentSelected = true;
+  bool isCantenSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,278 +27,317 @@ class _LoginState extends State<Login> {
         builder: (BuildContext context, Widget? child) {
           return Scaffold(
             backgroundColor: bgclr,
-            appBar: AppBar(
-              backgroundColor: highlightclr,
-            ),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FractionallySizedBox(
-                  widthFactor: 1.0,
-                  child: Container(
-                    height: 150.h,
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: shadowclr,
-                            offset: Offset(0, 0),
-                            blurRadius: 50.r,
+            body: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                    Container(
+                      height: 150.h,
+                      child: Center(
+                        child: Text(
+                          "LOGIN",
+                          style: TextStyle(
+                            color: textclr,
+                            fontSize: 70.sp,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.sp,
                           ),
-                        ],
-                        color: highlightclr,
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(150.r),
-                            bottomRight: Radius.circular(150.r))),
-                    child: Center(
-                      child: Text(
-                        "LOGIN",
-                        style: TextStyle(
-                          color: textclr,
-                          fontSize: 40.sp,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.sp,
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 350.w,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: shadowclr,
-                                    offset: Offset(5.r, 5.r),
-                                    blurRadius: 10.r,
-                                  ),
-                                  BoxShadow(
-                                    color: highlightclr,
-                                    offset: Offset(-5.r, -5.r),
-                                    blurRadius: 10.r,
-                                  ),
-                                ],
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    welcomeText = "TEACHER LOGIN";
-                                    isTeacher = true;
-                                    isTeacherSelected = true;
-                                    isStudentSelected = false;
-                                  });
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 35.w, vertical: 11.h),
-                                  backgroundColor: isTeacherSelected
-                                      ? selectclr
-                                      : bgclr,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                  overlayColor: selectclr,
-                                ),
-                                child: Text(
-                                  'TEACHER',
-                                  style: TextStyle(
-                                    fontSize: 20.sp,
-                                    letterSpacing: 1.sp,
-                                    color: textclr,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: shadowclr,
-                                    offset: Offset(5.r, 5.r),
-                                    blurRadius: 10.r,
-                                  ),
-                                  BoxShadow(
-                                    color: highlightclr,
-                                    offset: Offset(-5.r, -5.r),
-                                    blurRadius: 10.r,
-                                  ),
-                                ],
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    welcomeText = "STUDENT LOGIN";
-                                    isTeacher = false;
-                                    isTeacherSelected = false;
-                                    isStudentSelected = true;
-                                  });
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 35.w, vertical: 11.h),
-                                  backgroundColor: isStudentSelected
-                                      ? selectclr
-                                      : bgclr,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                  overlayColor: selectclr,
-                                ),
-                                child: Text(
-                                  'STUDENT',
-                                  style: TextStyle(
-                                    fontSize: 20.sp,
-                                    letterSpacing: 1.sp,
-                                    color: textclr,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 50.h,
-                      ),
-                      Container(
-                        height: 430.h,
-                        width: 350.w,
-                        padding: EdgeInsets.all(20.w),
-                        decoration: BoxDecoration(
-                          color: bgclr,
-                          borderRadius: BorderRadius.circular(16.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: shadowclr,
-                              offset: Offset(10.r, 10.r),
-                              blurRadius: 20.r,
-                            ),
-                            BoxShadow(
-                              color: highlightclr,
-                              offset: Offset(-10.r, -10.r),
-                              blurRadius: 20.r,
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              welcomeText,
-                              style: TextStyle(
-                                color: textclr,
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.sp,
-                              ),
-                            ),
-                            TextField(
-                              controller: logintext,
-                              decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: borderblacklight,
-                                        width:
-                                            2.0.w), // Border color when enabled
-                                    borderRadius: BorderRadius.circular(8.0.r),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: borderblacklight,
-                                        width:
-                                            2.0.w), // Border color when focused
-                                    borderRadius: BorderRadius.circular(8.0.r),
-                                  ),
-                                  hintText: "Enter Your ID"),
-                            ),
-                            TextField(
-                              controller: passwordval,
-                              decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: borderblacklight,
-                                        width:
-                                            2.0.w), // Border color when enabled
-                                    borderRadius: BorderRadius.circular(8.0.r),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: borderblacklight,
-                                        width:
-                                            2.0.w), // Border color when focused
-                                    borderRadius: BorderRadius.circular(8.0.r),
-                                  ),
-                                  hintText: "Enter Your Password"),
-                            ),
-                            Container(
-                              width: 330.w,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: shadowclr,
-                                    offset: Offset(8.r, 8.r),
-                                    blurRadius: 16.r,
-                                  ),
-                                  BoxShadow(
-                                    color: highlightclr,
-                                    offset: Offset(-8.r, -8.r),
-                                    blurRadius: 16.r,
-                                  ),
-                                ],
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  // Navigate to home.dart and pass the value of isTeacher and key
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Home(
-                                        key: UniqueKey(),
-                                        isTeacher: isTeacher,
-                                      ),
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 350.w,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: shadowclr,
+                                      offset: Offset(3.r, 3.r),
+                                      blurRadius: 6.r,
                                     ),
-                                  );
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 30.w, vertical: 13.h),
-                                  backgroundColor: bgclr,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-
-                                  overlayColor: selectclr,
+                                    BoxShadow(
+                                      color: highlightclr,
+                                      offset: Offset(-3.r, -3.r),
+                                      blurRadius: 6.r,
+                                    ),
+                                  ],
                                 ),
-                                child: Text(
-                                  'LOGIN',
-                                  style: TextStyle(
-                                    fontSize: 24.sp,
-                                    color: textclr,
+                                child: TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      welcomeText = "TEACHER LOGIN";
+                                      Logintext = "Teacher";
+                                      isTeacherSelected = true;
+                                      isStudentSelected = false;
+                                      isCantenSelected = false;
+                                    });
+                                  },
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 20.h),
+                                    backgroundColor: isTeacherSelected
+                                        ? selectclr
+                                        : bgclr,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                    overlayColor: selectclr,
+                                  ),
+                                  child: Text(
+                                    'TEACHER',
+                                    style: TextStyle(
+                                      fontSize: 13.sp,
+                                      letterSpacing: 1.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: textclr,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                              Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: shadowclr,
+                                      offset: Offset(3.r, 3.r),
+                                      blurRadius: 6.r,
+                                    ),
+                                    BoxShadow(
+                                      color: highlightclr,
+                                      offset: Offset(-3.r, -3.r),
+                                      blurRadius: 6.r,
+                                    ),
+                                  ],
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      welcomeText = "STUDENT LOGIN";
+                                      Logintext = "Student";
+                                      isTeacherSelected = false;
+                                      isCantenSelected = false;
+                                      isStudentSelected = true;
+                                    });
+                                  },
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 20.h),
+                                    backgroundColor: isStudentSelected
+                                        ? selectclr
+                                        : bgclr,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                    overlayColor: selectclr,
+                                  ),
+                                  child: Text(
+                                    'STUDENT',
+                                    style: TextStyle(
+                                      fontSize: 13.sp,
+                                      letterSpacing: 1.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: textclr,
+                                    ),
+                                  ),
+                                ),
+                              ),
+              
+                              Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: shadowclr,
+                                      offset: Offset(3.r, 3.r),
+                                      blurRadius: 6.r,
+                                    ),
+                                    BoxShadow(
+                                      color: highlightclr,
+                                      offset: Offset(-3.r, -3.r),
+                                      blurRadius: 6.r,
+                                    ),
+                                  ],
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      welcomeText = "CANTEEN LOGIN";
+                                      Logintext = "Canteen";
+                                      isTeacherSelected = false;
+                                      isCantenSelected = true;
+                                      isStudentSelected = false;
+                                    });
+                                  },
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 20.h),
+                                    backgroundColor: isCantenSelected
+                                        ? selectclr
+                                        : bgclr,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                    overlayColor: selectclr,
+                                  ),
+                                  child: Text(
+                                    'CANTEEN',
+                                    style: TextStyle(
+                                      fontSize: 13.sp,
+                                      letterSpacing: 1.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: textclr,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 70.h,
-                      ),
-                    ],
+                        SizedBox(
+                          height: 50.h,
+                        ),
+                        Container(
+                          height: 430.h,
+                          width: 350.w,
+                          padding: EdgeInsets.all(20.w),
+                          decoration: BoxDecoration(
+                            color: bgclr,
+                            borderRadius: BorderRadius.circular(16.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: shadowclr,
+                                offset: Offset(10.r, 10.r),
+                                blurRadius: 20.r,
+                              ),
+                              BoxShadow(
+                                color: highlightclr,
+                                offset: Offset(-10.r, -10.r),
+                                blurRadius: 20.r,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                welcomeText,
+                                style: TextStyle(
+                                  color: textclr,
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.sp,
+                                ),
+                              ),
+                              TextField(
+                                controller: logintext,
+                                decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: borderblacklight,
+                                          width:
+                                              2.0.w), // Border color when enabled
+                                      borderRadius: BorderRadius.circular(8.0.r),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: borderblacklight,
+                                          width:
+                                              2.0.w), // Border color when focused
+                                      borderRadius: BorderRadius.circular(8.0.r),
+                                    ),
+                                    hintText: "Enter Your ID"),
+                              ),
+                              TextField(
+                                controller: passwordval,
+                                decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: borderblacklight,
+                                          width:
+                                              2.0.w), // Border color when enabled
+                                      borderRadius: BorderRadius.circular(8.0.r),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: borderblacklight,
+                                          width:
+                                              2.0.w), // Border color when focused
+                                      borderRadius: BorderRadius.circular(8.0.r),
+                                    ),
+                                    hintText: "Enter Your Password"),
+                              ),
+                              Container(
+                                width: 330.w,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: shadowclr,
+                                      offset: Offset(8.r, 8.r),
+                                      blurRadius: 16.r,
+                                    ),
+                                    BoxShadow(
+                                      color: highlightclr,
+                                      offset: Offset(-8.r, -8.r),
+                                      blurRadius: 16.r,
+                                    ),
+                                  ],
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
+                                    // Navigate to home.dart and pass the value of isTeacher and key
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Home(
+                                          key: UniqueKey(),
+                                          Logintype: Logintext,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 30.w, vertical: 13.h),
+                                    backgroundColor: bgclr,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+              
+                                    overlayColor: selectclr,
+                                  ),
+                                  child: Text(
+                                    'LOGIN',
+                                    style: TextStyle(
+                                      fontSize: 24.sp,
+                                      color: textclr,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 70.h,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         });

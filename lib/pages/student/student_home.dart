@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hackathon/assets/colors.dart'; // Assuming your custom color imports
+import 'package:hackathon/pages/student/assignments.dart';
+import 'package:hackathon/utils/colors.dart'; // Assuming your custom color imports
 import 'package:hackathon/pages/student/AiChat.dart';
 import 'package:hackathon/pages/student/Attendance.dart';
 import 'package:hackathon/pages/student/Marksheet.dart';
-import 'package:hackathon/pages/student/Project.dart';
 import 'package:hackathon/pages/student/StudentProfile.dart';
 import 'package:hackathon/pages/student/studentFeedback.dart';
 
@@ -25,6 +25,7 @@ class _StudentHomeState extends State<StudentHome> {
         return Scaffold(
           backgroundColor: bgclr,
           appBar: AppBar(
+            backgroundColor: bgclr,
             leading: Builder(
               builder: (BuildContext context) => IconButton(
                 icon: Icon(
@@ -44,7 +45,7 @@ class _StudentHomeState extends State<StudentHome> {
               children: <Widget>[
                 DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: lightblue,
                   ),
                   child: Center(
                     child: Row(
@@ -67,7 +68,7 @@ class _StudentHomeState extends State<StudentHome> {
                   ),
                 ),
                 _buildDrawerItem(Icons.chat, 'AI Chat', context, AiChat()),
-                _buildDrawerItem(Icons.book, 'Projects', context, Project()),
+                _buildDrawerItem(Icons.book, 'Assignments', context, Assignments()),
                 _buildDrawerItem(Icons.bar_chart, 'Attendance', context, Attendance()),
                 _buildDrawerItem(Icons.feedback, 'Feedback', context, Studentfeedback()),
                 _buildDrawerItem(Icons.numbers, 'Marksheet', context, Marksheet()),
@@ -92,7 +93,7 @@ class _StudentHomeState extends State<StudentHome> {
       leading: Icon(
         icon,
         size: 30.sp,
-        color: background_blue,
+        color: lightblue,
       ),
       title: Text(
         title,

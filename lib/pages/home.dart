@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hackathon/pages/canteen/canteenHome.dart';
 import 'package:hackathon/pages/student/student_home.dart';
 import 'package:hackathon/pages/teacher/teacher_home.dart';
 
 class Home extends StatelessWidget {
-  final bool isTeacher;
+  final String Logintype;
 
-  // Accepting key and isTeacher in the constructor
-  const Home({super.key, required this.isTeacher});
+  const Home({super.key, required this.Logintype});
 
   @override
   Widget build(BuildContext context) {
-    if (isTeacher) {
+    if (Logintype=="Teacher") {
       return TeacherHome();
-    } else {
+    }
+    else if (Logintype =="Student") {
       return StudentHome();
+    }
+    else{
+      return CanteenHome();
     }
   }
 }

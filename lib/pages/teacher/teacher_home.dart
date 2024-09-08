@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hackathon/assets/colors.dart';
-import 'package:hackathon/main.dart';
+import 'package:hackathon/utils/colors.dart';
 import 'attendance.dart'; // Import the new pages
 import 'project_page.dart';
 import 'exam_page.dart';
