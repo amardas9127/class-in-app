@@ -14,8 +14,10 @@ class _LoginState extends State<Login> {
   TextEditingController logintext = TextEditingController();
   TextEditingController passwordval = TextEditingController();
 
-  String welcomeText = "WELCOME STUDENT";
+  String welcomeText = "STUDENT LOGIN";
   bool isTeacher = false;
+  bool isTeacherSelected = false;
+  bool isStudentSelected = true;
 
   @override
   Widget build(BuildContext context) {
@@ -90,17 +92,22 @@ class _LoginState extends State<Login> {
                               child: TextButton(
                                 onPressed: () {
                                   setState(() {
-                                    welcomeText = "WELCOME TEACHER";
+                                    welcomeText = "TEACHER LOGIN";
                                     isTeacher = true;
+                                    isTeacherSelected = true;
+                                    isStudentSelected = false;
                                   });
                                 },
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 35.w, vertical: 11.h),
-                                  backgroundColor: bgclr,
+                                  backgroundColor: isTeacherSelected
+                                      ? selectclr
+                                      : bgclr,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.r),
                                   ),
+                                  overlayColor: selectclr,
                                 ),
                                 child: Text(
                                   'TEACHER',
@@ -130,17 +137,22 @@ class _LoginState extends State<Login> {
                               child: TextButton(
                                 onPressed: () {
                                   setState(() {
-                                    welcomeText = "WELCOME STUDENT";
+                                    welcomeText = "STUDENT LOGIN";
                                     isTeacher = false;
+                                    isTeacherSelected = false;
+                                    isStudentSelected = true;
                                   });
                                 },
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 35.w, vertical: 11.h),
-                                  backgroundColor: bgclr,
+                                  backgroundColor: isStudentSelected
+                                      ? selectclr
+                                      : bgclr,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.r),
                                   ),
+                                  overlayColor: selectclr,
                                 ),
                                 child: Text(
                                   'STUDENT',
@@ -265,6 +277,8 @@ class _LoginState extends State<Login> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.r),
                                   ),
+
+                                  overlayColor: selectclr,
                                 ),
                                 child: Text(
                                   'LOGIN',
