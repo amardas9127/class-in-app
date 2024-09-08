@@ -6,4 +6,5 @@ Color shadowclr = Color(0xffbebebe);
 Color textclr = Color(0x8a000000);
 Color borderblacklight = Color(0xff888888);
 Color selectclr = Color(0xff81DAE3);
-Color background_blue = const Color(0xFF006FFF);
+Color background_blue = Color(0xFF006FFF);
+Color progressclr=  Color.fromARGB(255, 96, 125, 221);

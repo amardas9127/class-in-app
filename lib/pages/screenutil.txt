@@ -1,0 +1,9 @@
+return ScreenUtilInit(
+      designSize:  const Size(430, 932),
+      minTextAdapt: true,
+      builder: (BuildContext context, Widget? child) {
+        return
+        
+        
+      }
+    );
