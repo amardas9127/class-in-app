@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hackathon/pages/teacher/teacher_home.dart';
 
 class Home extends StatelessWidget {
   final bool isTeacher;
@@ -10,7 +11,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isTeacher) {
-      return TeacherScreen();
+      return TeacherHome();
     } else {
       return StudentScreen();
     }
@@ -44,28 +45,4 @@ class StudentScreen extends StatelessWidget {
   }
 }
 
-class TeacherScreen extends StatelessWidget {
-  const TeacherScreen({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(430, 932),
-        minTextAdapt: true,
-        builder: (BuildContext context, Widget? child) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Teacher Home'),
-            ),
-            body: Center(
-              child: Text(
-                'Welcome, Teacher!',
-                style: TextStyle(fontSize: 24),
-              ),
-            ),
-          );
-        });
-  }
-}
