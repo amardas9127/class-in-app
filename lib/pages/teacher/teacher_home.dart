@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hackathon/assets/colors.dart';
-import 'package:hackathon/main.dart';
-import 'attendance.dart'; // Import the new pages
-import 'project_page.dart';
-import 'exam_page.dart';
+import 'package:hackathon/assets/colors.dart'; // Assuming your custom color imports
+import 'package:hackathon/pages/teacher/exam_page.dart';
+//import 'home.dart';
 import 'Me.dart';
+import 'resource.dart';
+import 'attendance.dart';
+import 'project_page.dart';
+
 class TeacherHome extends StatefulWidget {
   const TeacherHome({super.key});
 
@@ -21,105 +23,90 @@ class _TeacherHomeState extends State<TeacherHome> {
       minTextAdapt: true,
       builder: (BuildContext context, Widget? child) {
         return Scaffold(
-          // Add a Drawer with menu items
+          backgroundColor: bgclr,
+          appBar: AppBar(
+            leading: Builder(
+              builder: (BuildContext context) => IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  size: 30.sp,
+                  color: background_blue,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer(); // Open the drawer
+                },
+              ),
+            ),
+          ),
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
                 DrawerHeader(
                   decoration: BoxDecoration(
-                    color: background_blue,
+                    color: Colors.blue,
                   ),
-                  child: Text(
-                    'Teacher Menu',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Icon(
+                          Icons.person,
+                          size: 100.sp,
+                          color: bgclr,
+                        ),
+                        Text(
+                          'Hello World',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24.sp,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                ListTile(
-                  leading: Icon(Icons.class_),
-                  title: Text('Attendance'),
-                  onTap: () {
-                    Navigator.pop(context); // Close the drawer
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AttendancePage(), // Navigate to AttendancePage
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.folder),
-                  title: Text('Project'),
-                  onTap: () {
-                    Navigator.pop(context); // Close the drawer
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProjectPage(), // Navigate to ProjectPage
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.folder),
-                  title: Text('Exam'),
-                  onTap: () {
-                    Navigator.pop(context); // Close the drawer
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ExamPage(), // Navigate to ProjectPage
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.query_builder),
-                  title: Text('Me'),
-                  onTap: () {
-                    Navigator.pop(context); // Close the drawer
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MePage(), // Navigate to ExamPage
-                      ),
-                    );
-                  },
-                ),
+                 _buildDrawerItem(Icons.bar_chart, 'Attendance', context, AttendancePage()),
+                _buildDrawerItem(Icons.book, 'Projects', context, ProjectPage()),
+               
+                _buildDrawerItem(Icons.feedback, 'Exam', context, ExamPage()),
+                _buildDrawerItem(Icons.laptop, 'Resources', context, ResourcePage()),
+                //_buildDrawerItem(Icons.numbers, 'Marksheet', context, Marksheet()),
+                _buildDrawerItem(Icons.person, 'Me', context, MePage()),
+                
               ],
             ),
           ),
-
-          body: Stack(
-            children: [
-              Center(
-                child: Text(
-                  'Welcome, Teacher!',
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-
-              // Align the hamburger menu icon to the top-left
-              Positioned(
-                top: 60, // Adjust this value to change vertical position
-                left: 10, // Adjust this value to change horizontal position
-                child: Builder(
-                  builder: (context) => IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer(); // Open the drawer
-                    },
-                    color: background_blue,
-                    iconSize: 30, // Adjust size of the hamburger icon
-                  ),
-                ),
-              ),
-            ],
+          body: Center(
+            child: Text(
+              'Welcome, Teacher!',
+              style: TextStyle(fontSize: 24.sp),
+            ),
           ),
+        );
+      },
+    );
+  }
+
+  // Helper method to create a drawer item with navigation
+  Widget _buildDrawerItem(IconData icon, String title, BuildContext context, Widget screen) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        size: 30.sp,
+        color: background_blue,
+      ),
+      title: Text(
+        title,
+        style: TextStyle(fontSize: 18.sp),
+      ),
+      onTap: () {
+        // Close the drawer when a menu item is tapped
+        Navigator.pop(context);
+        // Navigate to the specified screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => screen),
         );
       },
     );

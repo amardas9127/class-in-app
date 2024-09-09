@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AttendancePage extends StatefulWidget {
+  const AttendancePage({super.key});
+
   @override
   _AttendancePageState createState() => _AttendancePageState();
 }
@@ -92,7 +94,9 @@ class _AttendancePageState extends State<AttendancePage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
                           ),
-                          child: Text('P'), // P for Present
+                          child: Text('P',
+                          style: TextStyle(color: Colors.white), // P for Present
+                        ),
                         ),
                         SizedBox(width: 10),
                         ElevatedButton(
@@ -102,8 +106,10 @@ class _AttendancePageState extends State<AttendancePage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
                           ),
-                          child: Text('A'), // A for Absent
+                          child: Text('A',
+                          style: TextStyle(color: Colors.white),), // A for Absent
                         ),
+
                       ],
                     ),
                   ),
@@ -122,7 +128,8 @@ class _AttendancePageState extends State<AttendancePage> {
               ),
               child: Text(
                 'Submit ',
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 18,color: Colors.white
+                ),
               ),
             ),
           ),
