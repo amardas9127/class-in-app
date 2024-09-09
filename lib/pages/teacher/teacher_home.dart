@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+<<<<<<< HEAD
 import 'package:hackathon/assets/colors.dart'; // Assuming your custom color imports
 import 'package:hackathon/pages/teacher/exam_page.dart';
 //import 'home.dart';
+=======
+import 'package:hackathon/utils/colors.dart';
+import 'attendance.dart'; // Import the new pages
+import 'project_page.dart';
+import 'exam_page.dart';
+>>>>>>> 79b92f8d67462e94eff4f7146e5274382cb226b3
 import 'Me.dart';
 import 'resource.dart';
 import 'attendance.dart';
