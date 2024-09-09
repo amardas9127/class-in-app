@@ -7,9 +7,21 @@ import 'package:hackathon/pages/student/Attendance.dart';
 import 'package:hackathon/pages/student/Marksheet.dart';
 import 'package:hackathon/pages/student/StudentProfile.dart';
 import 'package:hackathon/pages/student/studentFeedback.dart';
+import 'package:hackathon/utils/notification.dart';
 
 class StudentHome extends StatefulWidget {
-  const StudentHome({super.key});
+  final String name;
+  final String rollNum;
+  final String schoolName;
+  final String sclassNam;
+
+  const StudentHome({
+    super.key,
+    required this.name,
+    required this.rollNum,
+    required this.schoolName,
+    required this.sclassNam,
+  });
 
   @override
   State<StudentHome> createState() => _StudentHomeState();
@@ -38,6 +50,15 @@ class _StudentHomeState extends State<StudentHome> {
                 },
               ),
             ),
+            actions: [
+              IconButton(
+                  icon: Icon(
+                    Icons.notifications,
+                    size: 30.sp,
+                    color: background_blue,
+                  ),
+                  onPressed: () {}),
+            ],
           ),
           drawer: Drawer(
             child: ListView(
@@ -57,7 +78,7 @@ class _StudentHomeState extends State<StudentHome> {
                           color: bgclr,
                         ),
                         Text(
-                          'Hello World',
+                          widget.name,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24.sp,
@@ -68,10 +89,14 @@ class _StudentHomeState extends State<StudentHome> {
                   ),
                 ),
                 _buildDrawerItem(Icons.chat, 'AI Chat', context, AiChat()),
-                _buildDrawerItem(Icons.book, 'Assignments', context, Assignments()),
-                _buildDrawerItem(Icons.bar_chart, 'Attendance', context, Attendance()),
-                _buildDrawerItem(Icons.feedback, 'Feedback', context, Studentfeedback()),
-                _buildDrawerItem(Icons.numbers, 'Marksheet', context, Marksheet()),
+                _buildDrawerItem(
+                    Icons.book, 'Assignments', context, Assignments()),
+                _buildDrawerItem(
+                    Icons.bar_chart, 'Attendance', context, Attendance()),
+                _buildDrawerItem(
+                    Icons.feedback, 'Feedback', context, Studentfeedback()),
+                _buildDrawerItem(
+                    Icons.numbers, 'Marksheet', context, Marksheet()),
                 _buildDrawerItem(Icons.person, 'Me', context, Studentprofile()),
               ],
             ),
@@ -88,7 +113,8 @@ class _StudentHomeState extends State<StudentHome> {
   }
 
   // Helper method to create a drawer item with navigation
-  Widget _buildDrawerItem(IconData icon, String title, BuildContext context, Widget screen) {
+  Widget _buildDrawerItem(
+      IconData icon, String title, BuildContext context, Widget screen) {
     return ListTile(
       leading: Icon(
         icon,

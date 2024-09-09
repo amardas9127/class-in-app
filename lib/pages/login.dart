@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'package:hackathon/pages/student/student_home.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hackathon/utils/colors.dart';
 import 'package:hackathon/pages/home.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -19,6 +23,60 @@ class _LoginState extends State<Login> {
   bool isStudentSelected = true;
   bool isCantenSelected = false;
 
+  Future<String> _getLoginResponse(String userid, String userpassword) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:8000/StudentLogin'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'rollNum': userid,
+          'studentName': userpassword,
+        }),
+      );
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        // Check if the response indicates success
+        if (data['success']) {
+          // Handle successful login
+          print("Login successful: ${data['message']}");
+          print("Student details: ${data['student']}");
+
+          // Navigate to StudentHome if login is successful
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => StudentHome(
+                name: data['student']['name'] ?? 'Unknown',
+                rollNum: data['student']['rollNum'] ?? 'N/A',
+                schoolName: data['student']['schoolName'] ?? 'Unknown',
+                sclassNam: data['student']['sclassNam'] ?? 'Unknown Class',
+              ),
+            ),
+          );
+
+          return data['message']; // Return success message
+        } else {
+          // Handle cases where success is false, but status is 200
+          return "Login failed: ${data['message']}";
+        }
+      } else if (response.statusCode == 401 || response.statusCode == 404) {
+        // Handle unauthorized or not found status
+        final data = jsonDecode(response.body);
+        return "Error: ${data['message']}";
+      } else {
+        // Handle unexpected status codes
+        return "Error: Server returned status code ${response.statusCode}";
+      }
+    } catch (e) {
+      return "Error: ${e.toString()}";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -35,20 +93,20 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     height: 50.h,
                   ),
-                    Container(
-                      height: 150.h,
-                      child: Center(
-                        child: Text(
-                          "LOGIN",
-                          style: TextStyle(
-                            color: textclr,
-                            fontSize: 70.sp,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.sp,
-                          ),
+                  Container(
+                    height: 150.h,
+                    child: Center(
+                      child: Text(
+                        "LOGIN",
+                        style: TextStyle(
+                          color: textclr,
+                          fontSize: 70.sp,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.sp,
                         ),
                       ),
                     ),
+                  ),
                   Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -88,9 +146,8 @@ class _LoginState extends State<Login> {
                                   style: TextButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 20.w, vertical: 20.h),
-                                    backgroundColor: isTeacherSelected
-                                        ? selectclr
-                                        : bgclr,
+                                    backgroundColor:
+                                        isTeacherSelected ? selectclr : bgclr,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.r),
                                     ),
@@ -135,9 +192,8 @@ class _LoginState extends State<Login> {
                                   style: TextButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 20.w, vertical: 20.h),
-                                    backgroundColor: isStudentSelected
-                                        ? selectclr
-                                        : bgclr,
+                                    backgroundColor:
+                                        isStudentSelected ? selectclr : bgclr,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.r),
                                     ),
@@ -154,7 +210,6 @@ class _LoginState extends State<Login> {
                                   ),
                                 ),
                               ),
-              
                               Container(
                                 decoration: BoxDecoration(
                                   boxShadow: [
@@ -183,9 +238,8 @@ class _LoginState extends State<Login> {
                                   style: TextButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 20.w, vertical: 20.h),
-                                    backgroundColor: isCantenSelected
-                                        ? selectclr
-                                        : bgclr,
+                                    backgroundColor:
+                                        isCantenSelected ? selectclr : bgclr,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.r),
                                     ),
@@ -247,16 +301,18 @@ class _LoginState extends State<Login> {
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           color: borderblacklight,
-                                          width:
-                                              2.0.w), // Border color when enabled
-                                      borderRadius: BorderRadius.circular(8.0.r),
+                                          width: 2.0
+                                              .w), // Border color when enabled
+                                      borderRadius:
+                                          BorderRadius.circular(8.0.r),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           color: borderblacklight,
-                                          width:
-                                              2.0.w), // Border color when focused
-                                      borderRadius: BorderRadius.circular(8.0.r),
+                                          width: 2.0
+                                              .w), // Border color when focused
+                                      borderRadius:
+                                          BorderRadius.circular(8.0.r),
                                     ),
                                     hintText: "Enter Your ID"),
                               ),
@@ -266,16 +322,18 @@ class _LoginState extends State<Login> {
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           color: borderblacklight,
-                                          width:
-                                              2.0.w), // Border color when enabled
-                                      borderRadius: BorderRadius.circular(8.0.r),
+                                          width: 2.0
+                                              .w), // Border color when enabled
+                                      borderRadius:
+                                          BorderRadius.circular(8.0.r),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           color: borderblacklight,
-                                          width:
-                                              2.0.w), // Border color when focused
-                                      borderRadius: BorderRadius.circular(8.0.r),
+                                          width: 2.0
+                                              .w), // Border color when focused
+                                      borderRadius:
+                                          BorderRadius.circular(8.0.r),
                                     ),
                                     hintText: "Enter Your Password"),
                               ),
@@ -297,16 +355,8 @@ class _LoginState extends State<Login> {
                                 ),
                                 child: TextButton(
                                   onPressed: () {
-                                    // Navigate to home.dart and pass the value of isTeacher and key
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Home(
-                                          key: UniqueKey(),
-                                          Logintype: Logintext,
-                                        ),
-                                      ),
-                                    );
+                                    _getLoginResponse(
+                                        logintext.text, passwordval.text);
                                   },
                                   style: TextButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
@@ -315,7 +365,6 @@ class _LoginState extends State<Login> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.r),
                                     ),
-              
                                     overlayColor: selectclr,
                                   ),
                                   child: Text(
