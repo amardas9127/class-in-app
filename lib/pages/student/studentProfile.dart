@@ -3,7 +3,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hackathon/utils/colors.dart';
 
 class Studentprofile extends StatefulWidget {
-  const Studentprofile({super.key});
+  final String name;
+  final String rollNum;
+  final String schoolName;
+  final String sclassNam;
+  final String sdept;
+  final String semail;
+  final String sphno;
+  const Studentprofile(
+      {super.key,
+      required this.name,
+      required this.rollNum,
+      required this.schoolName,
+      required this.sclassNam,
+      required this.sdept,
+      required this.semail,
+      required this.sphno});
 
   @override
   State<Studentprofile> createState() => _StudentprofileState();
@@ -34,9 +49,8 @@ class _StudentprofileState extends State<Studentprofile> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Stack(
-                    alignment: Alignment(0, -.5),
-                    children:[ Container(
+                  Stack(alignment: Alignment(0, -.5), children: [
+                    Container(
                       width: 300.r,
                       height: 300.r,
                       decoration: BoxDecoration(
@@ -60,9 +74,8 @@ class _StudentprofileState extends State<Studentprofile> {
                       image: AssetImage("assets/man.png"),
                       height: 280.r,
                       width: 280.r,
-                      )
-                    ]
-                  ),
+                    )
+                  ]),
                   Container(
                     width: 350.w,
                     height: 450.h,
@@ -86,13 +99,14 @@ class _StudentprofileState extends State<Studentprofile> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Detailscard("Name", "Amar Das"),
-                        Detailscard("Roll No", "BCASP/038"),
-                        Detailscard("Department", "BCA"),
-                        Detailscard("Semester", "5th"),
-                        Detailscard("Ph No", "9876543210"),
-                        Detailscard("E-mail", "amardas@gmail.com"),
-                        ],
+                        Detailscard("Name", widget.name),
+                        Detailscard("Roll No", widget.rollNum),
+                        Detailscard("Department", widget.sdept),
+                        Detailscard("Class", widget.sclassNam),
+                        Detailscard("School", widget.schoolName),
+                        Detailscard("Ph No", widget.sphno),
+                        Detailscard("E-mail", widget.semail),
+                      ],
                     ),
                   )
                 ],
@@ -112,14 +126,17 @@ class _StudentprofileState extends State<Studentprofile> {
         ),
         Text(
           "$dtitle :",
-          style: TextStyle(color: textclr, fontSize: 20.sp,),
+          style: TextStyle(
+            color: textclr,
+            fontSize: 18.sp,
+          ),
         ),
         SizedBox(
           width: 10.w,
         ),
         Text(
           details,
-          style: TextStyle(color: textclr, fontSize: 20.sp),
+          style: TextStyle(color: textclr, fontSize: 18.sp),
         )
       ],
     );

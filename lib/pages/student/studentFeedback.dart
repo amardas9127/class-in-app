@@ -1,5 +1,6 @@
 // ignore: file_names
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hackathon/utils/colors.dart';
 
@@ -41,9 +42,8 @@ class _StudentfeedbackState extends State<Studentfeedback> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Stack(
-                          alignment: Alignment(0, 0),
-                          children:[ Container(
+                        Stack(alignment: Alignment(0, 0), children: [
+                          Container(
                             height: 350.r,
                             width: 350.r,
                             decoration: BoxDecoration(
@@ -63,12 +63,11 @@ class _StudentfeedbackState extends State<Studentfeedback> {
                               ],
                             ),
                           ),
-                           Image(
+                          Image(
                             image: AssetImage("assets/image.png"),
                             height: 300.r,
                           ),
-                          ]
-                        ),
+                        ]),
                         SizedBox(
                           height: 10.r,
                         ),
@@ -83,21 +82,45 @@ class _StudentfeedbackState extends State<Studentfeedback> {
                     ),
                     Column(
                       children: [
-                        TextField(
-                          decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: borderblacklight,
-                                    width: 2.0.w), // Border color when enabled
-                                borderRadius: BorderRadius.circular(8.0.r),
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    color: shadowclr,
+                                    offset: Offset(4.r, 4.r),
+                                    blurRadius: 8.r,
+                                    inset: true),
+                                BoxShadow(
+                                    color: highlightclr,
+                                    offset: Offset(-4.r, -4.r),
+                                    blurRadius: 8.r,
+                                    inset: true),
+                              ],
+                              borderRadius: BorderRadius.circular(15.0.r),
+                              color: bgclr // Match the TextField borderRadius
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: borderblacklight,
-                                    width: 2.0.w), // Border color when focused
-                                borderRadius: BorderRadius.circular(8.0.r),
-                              ),
-                              hintText: "Enter Your Feedback Here"),
+                          child: TextField(
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: bgclr,
+                                      width:
+                                          2.0.w), // Border color when enabled
+                                  borderRadius: BorderRadius.circular(8.0.r),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: bgclr,
+                                      width:
+                                          2.0.w), // Border color when focused
+                                  borderRadius: BorderRadius.circular(8.0.r),
+                                ),
+                                hintText: "Enter Your Feedback Here"),
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  height: 3.h
+                                ),
+                          ),
                         ),
                         SizedBox(
                           height: 20.h,

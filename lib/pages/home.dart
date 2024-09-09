@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon/pages/canteen/canteenHome.dart';
-import 'package:hackathon/pages/student/student_home.dart';
 import 'package:hackathon/pages/teacher/teacher_home.dart';
 
 class Home extends StatelessWidget {

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hackathon/pages/student/assignments.dart';
+import 'package:hackathon/pages/student/studentProfile.dart';
 import 'package:hackathon/utils/colors.dart'; // Assuming your custom color imports
 import 'package:hackathon/pages/student/AiChat.dart';
 import 'package:hackathon/pages/student/Attendance.dart';
 import 'package:hackathon/pages/student/Marksheet.dart';
-import 'package:hackathon/pages/student/StudentProfile.dart';
 import 'package:hackathon/pages/student/studentFeedback.dart';
-import 'package:hackathon/utils/notification.dart';
 
 class StudentHome extends StatefulWidget {
   final String name;
   final String rollNum;
   final String schoolName;
   final String sclassNam;
+  final String sdept;
+  final String semail;
+  final String sphno;
 
   const StudentHome({
     super.key,
@@ -21,6 +23,9 @@ class StudentHome extends StatefulWidget {
     required this.rollNum,
     required this.schoolName,
     required this.sclassNam,
+    required this.sdept,
+    required this.semail,
+    required this.sphno,
   });
 
   @override
@@ -43,7 +48,7 @@ class _StudentHomeState extends State<StudentHome> {
                 icon: Icon(
                   Icons.menu,
                   size: 30.sp,
-                  color: background_blue,
+                  color: lightblue,
                 ),
                 onPressed: () {
                   Scaffold.of(context).openDrawer(); // Open the drawer
@@ -52,10 +57,11 @@ class _StudentHomeState extends State<StudentHome> {
             ),
             actions: [
               IconButton(
+                padding: EdgeInsets.only(right: 5.r),
                   icon: Icon(
                     Icons.notifications,
                     size: 30.sp,
-                    color: background_blue,
+                    color: lightblue,
                   ),
                   onPressed: () {}),
             ],
@@ -97,7 +103,7 @@ class _StudentHomeState extends State<StudentHome> {
                     Icons.feedback, 'Feedback', context, Studentfeedback()),
                 _buildDrawerItem(
                     Icons.numbers, 'Marksheet', context, Marksheet()),
-                _buildDrawerItem(Icons.person, 'Me', context, Studentprofile()),
+                _buildDrawerItem(Icons.person, 'Me', context, Scaffold() ),
               ],
             ),
           ),
@@ -126,14 +132,33 @@ class _StudentHomeState extends State<StudentHome> {
         style: TextStyle(fontSize: 18.sp),
       ),
       onTap: () {
-        // Close the drawer when a menu item is tapped
-        Navigator.pop(context);
-        // Navigate to the specified screen
+      // Close the drawer when a menu item is tapped
+      Navigator.pop(context);
+
+      // Check if the selected item is 'Me', and use Navigator.pushReplacement
+      if (title == 'Me') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Studentprofile(
+              name: widget.name,
+              rollNum: widget.rollNum,
+              schoolName: widget.schoolName,
+              sclassNam: widget.sclassNam,
+              sdept: widget.sdept,
+              semail: widget.semail,
+              sphno: widget.sphno,
+            ),
+          ),
+        );
+      } else {
+        // For other items, use regular push navigation
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => screen),
         );
-      },
+      }
+    },
     );
   }
 }

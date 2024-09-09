@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:hackathon/pages/student/student_home.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hackathon/utils/colors.dart';
-import 'package:hackathon/pages/home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -23,10 +23,62 @@ class _LoginState extends State<Login> {
   bool isStudentSelected = true;
   bool isCantenSelected = false;
 
+  btnclick() {
+    if (isTeacherSelected) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StudentHome(
+            name: 'Name',
+            rollNum: 'Roll No',
+            schoolName: 'School Name',
+            sclassNam: 'Class Name',
+            sdept: 'Dept Name',
+            semail: 'Student Email',
+            sphno: 'Student Phone no',
+          ),
+        ),
+      );
+    }
+    if (isStudentSelected) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StudentHome(
+            name: 'Name',
+            rollNum: 'Roll No',
+            schoolName: 'School Name',
+            sclassNam: 'Class Name',
+            sdept: 'Dept Name',
+            semail: 'Student Email',
+            sphno: 'Student Phone no',
+          ),
+        ),
+      );
+      // _getLoginResponse(logintext.text, passwordval.text);
+    }
+    if (isCantenSelected) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StudentHome(
+            name: 'Name',
+            rollNum: 'Roll No',
+            schoolName: 'School Name',
+            sclassNam: 'Class Name',
+            sdept: 'Dept Name',
+            semail: 'Student Email',
+            sphno: 'Student Phone no',
+          ),
+        ),
+      );
+    }
+  }
+
   Future<String> _getLoginResponse(String userid, String userpassword) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:8000/StudentLogin'),
+        Uri.parse('/StudentLogin'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -54,7 +106,10 @@ class _LoginState extends State<Login> {
                 name: data['student']['name'] ?? 'Unknown',
                 rollNum: data['student']['rollNum'] ?? 'N/A',
                 schoolName: data['student']['schoolName'] ?? 'Unknown',
-                sclassNam: data['student']['sclassNam'] ?? 'Unknown Class',
+                sclassNam: data['student']['sclassNam'] ?? 'Unknown',
+                sdept: data['student']['sdept'] ?? 'Unknown',
+                semail: data['student']['semail'] ?? 'Unknown',
+                sphno: data['student']['sphno'] ?? 'Unknown',
               ),
             ),
           );
@@ -86,14 +141,15 @@ class _LoginState extends State<Login> {
           return Scaffold(
             backgroundColor: bgclr,
             body: SafeArea(
-              child: Column(
+              child: SingleChildScrollView
+              (child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                     height: 50.h,
                   ),
-                  Container(
+                  SizedBox(
                     height: 150.h,
                     child: Center(
                       child: Text(
@@ -295,47 +351,85 @@ class _LoginState extends State<Login> {
                                   letterSpacing: 1.sp,
                                 ),
                               ),
-                              TextField(
-                                controller: logintext,
-                                decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: borderblacklight,
-                                          width: 2.0
-                                              .w), // Border color when enabled
-                                      borderRadius:
-                                          BorderRadius.circular(8.0.r),
+                              Container(
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: shadowclr,
+                                          offset: Offset(4.r, 4.r),
+                                          blurRadius: 8.r,
+                                          inset: true),
+                                      BoxShadow(
+                                          color: highlightclr,
+                                          offset: Offset(-4.r, -4.r),
+                                          blurRadius: 8.r,
+                                          inset: true),
+                                    ],
+                                    borderRadius: BorderRadius.circular(15.0.r),
+                                    color:
+                                        bgclr // Match the TextField borderRadius
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: borderblacklight,
-                                          width: 2.0
-                                              .w), // Border color when focused
-                                      borderRadius:
-                                          BorderRadius.circular(8.0.r),
-                                    ),
-                                    hintText: "Enter Your ID"),
+                                child: TextField(
+                                  controller: logintext,
+                                  decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: bgclr,
+                                            width: 2.0
+                                                .w), // Border color when enabled
+                                        borderRadius:
+                                            BorderRadius.circular(8.0.r),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: bgclr,
+                                            width: 2.0
+                                                .w), // Border color when focused
+                                        borderRadius:
+                                            BorderRadius.circular(8.0.r),
+                                      ),
+                                      hintText: "Enter Your ID"),
+                                ),
                               ),
-                              TextField(
-                                controller: passwordval,
-                                decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: borderblacklight,
-                                          width: 2.0
-                                              .w), // Border color when enabled
-                                      borderRadius:
-                                          BorderRadius.circular(8.0.r),
+                              Container(
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: shadowclr,
+                                          offset: Offset(4.r, 4.r),
+                                          blurRadius: 8.r,
+                                          inset: true),
+                                      BoxShadow(
+                                          color: highlightclr,
+                                          offset: Offset(-4.r, -4.r),
+                                          blurRadius: 8.r,
+                                          inset: true),
+                                    ],
+                                    borderRadius: BorderRadius.circular(15.0.r),
+                                    color:
+                                        bgclr // Match the TextField borderRadius
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: borderblacklight,
-                                          width: 2.0
-                                              .w), // Border color when focused
-                                      borderRadius:
-                                          BorderRadius.circular(8.0.r),
-                                    ),
-                                    hintText: "Enter Your Password"),
+                                child: TextField(
+                                  controller: passwordval,
+                                  decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: bgclr,
+                                            width: 2.0
+                                                .w), // Border color when enabled
+                                        borderRadius:
+                                            BorderRadius.circular(8.0.r),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: bgclr,
+                                            width: 2.0
+                                                .w), // Border color when focused
+                                        borderRadius:
+                                            BorderRadius.circular(8.0.r),
+                                      ),
+                                      hintText: "Enter Your Password"),
+                                ),
                               ),
                               Container(
                                 width: 330.w,
@@ -355,8 +449,7 @@ class _LoginState extends State<Login> {
                                 ),
                                 child: TextButton(
                                   onPressed: () {
-                                    _getLoginResponse(
-                                        logintext.text, passwordval.text);
+                                    btnclick();
                                   },
                                   style: TextButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
@@ -387,7 +480,7 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-            ),
+            ),),
           );
         });
   }
